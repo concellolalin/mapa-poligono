@@ -3,20 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<style>
-	#details {
-		font-size: 2em;
-		border-color: 2px solid #CCC;
-		position: fixed;
-		z-index: 1000;
-		top: 10px;
-		left: 10px;
-		background-color: #EEE;
-		border-radius: 10px;
+	<style>	
+	#mapa {
+		overflow:scroll;
+		
 	}
 	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
 </head>
 <body>
+
+
+<div class="container">
+  <div class="row">
+	<div class="col-md-12">
 
 <div id="mapa">
 	<svg
@@ -12344,25 +12344,54 @@ DtHTaxRTBVJMNU0f7QLC4Vm5BsR/QuDX+L+fH/P022inS0UllVirISoJRtJZCRcqxQkXH0NiR/Q+
 </svg>
 </div>
 
-<div id="details"></div>
 
+
+</div></div></div>
+
+<div id="details" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Pechar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>	
 <script>
 //console.log(d3.selectAll('div#mapa>svg>path'));
 d3.selectAll('div#mapa>svg>path').style("fill","lightcoral").transition().style("fill-opacity", 0.6);
+d3.selectAll('div#mapa>svg>path').on('click', function() {
+	d3.select(this).style("fill-opacity", 1.0);
+	
+	$('#details .modal-title').html(this.getAttribute('inkscape:label'));
+	$('#details .modal-body').html(this.getAttribute('inkscape:label'));
+	$('#details').modal('show');
+});
+
 d3.selectAll('div#mapa>svg>path').on('mouseover', function() {
 	d3.select(this).style("fill-opacity", 0.4);
-	
-	d3.select('#details').style('display', '');
-	d3.select('#details').html(this.getAttribute('inkscape:label'));
 });
 
 d3.selectAll('div#mapa>svg>path').on('mouseout', function() {
 	d3.select(this).style("fill-opacity", 0.6);
-
-	d3.select('#details').style('display', 'none');
-	d3.select('#details').html('');
 });
+
+/* d3.selectAll('div#mapa>svg>path').on('mouseout', function() {
+	d3.select(this).style("fill-opacity", 0.6);
+
+	$('#details').modal('hide');
+}); */
 </script>
 </body>
 </html>
