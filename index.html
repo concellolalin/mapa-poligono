@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Polígono Lalín</title>
 	<style>	
 	#mapa {
-		overflow:scroll;
+		overflow:hidden;
 		height: 640px;
+		cursor: move;		
+	}
+	
+	#mapa path {
+		cursor: pointer;
 	}
 	</style>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -16,7 +21,9 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">&nbsp;</div>
+		<div class="col-md-12">
+			<h1>Polígono Lalín</h1>
+		</div>
 	</div>
   <div class="row">
 	<div class="col-md-12">
@@ -12369,6 +12376,7 @@ DtHTaxRTBVJMNU0f7QLC4Vm5BsR/QuDX+L+fH/P022inS0UllVirISoJRtJZCRcqxQkXH0NiR/Q+
 </div><!-- /.modal -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>	
 <script>
@@ -12388,6 +12396,28 @@ d3.selectAll('div#mapa>svg>path').on('mouseover', function() {
 
 d3.selectAll('div#mapa>svg>path').on('mouseout', function() {
 	d3.select(this).style("fill-opacity", 0.6);
+});
+
+$('#mapa svg').draggable({
+  drag: function( event, ui ) {
+	//console.log(ui.position.left, ui.position.top);
+     
+	if (ui.position.left < -768) {
+        ui.position.left = -768;
+    }
+	
+	if (ui.position.left > 0) {
+        ui.position.left = 0;
+    }
+	
+	if (ui.position.top > 0) {
+        ui.position.top = 0;
+    }
+	
+	if (ui.position.top < (-1597+640)) {
+        ui.position.top = (-1597+640);
+    }
+  }
 });
 
 /* d3.selectAll('div#mapa>svg>path').on('mouseout', function() {
